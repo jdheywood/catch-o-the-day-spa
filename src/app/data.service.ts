@@ -113,4 +113,9 @@ export class DataService {
     return this;
   }
 
+  // Fetch of todays dailyCatch
+  getDailyCatch(): DailyCatch {
+    return this.dailyCatch;
+  }
+
 }

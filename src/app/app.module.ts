@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
-import { TodoListFooterComponent } from './todo-list-footer/todo-list-footer.component';
+import { MyFooterComponent } from './my-footer/my-footer.component';
 import { MyHeaderComponent } from './my-header/my-header.component';
 import { DataService } from './data.service';
 import { TodoListItemComponent } from './todo-list-item/todo-list-item.component';
@@ -15,7 +15,7 @@ import { TodoListItemComponent } from './todo-list-item/todo-list-item.component
     AppComponent,
     MyHeaderComponent,
     TodoListComponent,
-    TodoListFooterComponent,
+    MyFooterComponent,
     TodoListItemComponent
   ],
   imports: [

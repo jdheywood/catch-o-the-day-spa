@@ -40,4 +40,7 @@ export class AppComponent {
     return this.dataService.getFish();
   }
 
+  get dailyCatches() {
+    return this.dataService.getDailyCatch();
+  }
 }
