@@ -1,37 +1,43 @@
 import {Component} from '@angular/core';
-import {TodoDataService} from './todo-data.service';
+import {DataService} from './data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [TodoDataService]
+  providers: [DataService]
 })
 export class AppComponent {
 
   constructor(
-    private todoDataService: TodoDataService
+    private dataService: DataService
   ) {
   }
 
   onAddTodo(todo) {
-    this.todoDataService.addTodo(todo);
+    console.log('emitted event addToDo caught');
+    this.dataService.addTodo(todo);
+  }
+
+  onAddLanded(landed) {
+    console.log('emitted event landFish caught');
+    this.dataService.landFish(landed);
   }
 
   onToggleTodoComplete(todo) {
-    this.todoDataService.toggleTodoComplete(todo);
+    this.dataService.toggleTodoComplete(todo);
   }
 
   onRemoveTodo(todo) {
-    this.todoDataService.deleteTodoById(todo.id);
+    this.dataService.deleteTodoById(todo.id);
   }
 
   get todos() {
-    return this.todoDataService.getAllTodos();
+    return this.dataService.getAllTodos();
   }
 
   get fish() {
-    return this.todoDataService.getFish();
+    return this.dataService.getFish();
   }
 
 }

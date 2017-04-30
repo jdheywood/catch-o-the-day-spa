@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Todo} from './todo';
 import {Fish} from './fish';
+import {Landed} from './landed';
+import {DailyCatch} from "./daily-catch";
 
 @Injectable()
-export class TodoDataService {
+export class DataService {
 
   // Placeholder for last id so we can simulate
   // automatic incrementing of id's
@@ -18,11 +20,19 @@ export class TodoDataService {
   trout: Fish = {id: 3, name: 'Trout'};
   fish: Fish[] = [this.catfish, this.pike, this.trout];
 
+  // Daily catch
+  dailyCatch: DailyCatch;
+
+  // Landed fish
+  landed: Landed[] = [];
+
   constructor() {
   }
 
   // Simulate POST /todos
-  addTodo(todo: Todo): TodoDataService {
+  addTodo(todo: Todo): DataService {
+    console.log('adding to do');
+
     if (!todo.id) {
       todo.id = ++this.lastId;
     }
@@ -31,7 +41,7 @@ export class TodoDataService {
   }
 
   // Simulate DELETE /todos/:id
-  deleteTodoById(id: number): TodoDataService {
+  deleteTodoById(id: number): DataService {
     this.todos = this.todos
       .filter(todo => todo.id !== id);
     return this;
@@ -67,9 +77,40 @@ export class TodoDataService {
     return updatedTodo;
   }
 
+
   // Simulate GET /fish
   getFish(): Fish[] {
     return this.fish;
+  }
+
+  // Simulate POST /catches
+  createDailyCatch(landed: Landed): DailyCatch {
+    this.dailyCatch = new DailyCatch();
+    this.dailyCatch.weather = 'Sunny';
+    this.dailyCatch.landed.push(landed);
+    this.dailyCatch.day = '2017-04-30';
+    return this.dailyCatch;
+  }
+
+  // Simulate PUT /catches
+  updateDailyCatch(landed: Landed): DailyCatch {
+    this.dailyCatch.landed.push(landed);
+    return this.dailyCatch;
+  }
+
+  // Upsert of dailyCatch
+  landFish(landed: Landed): DataService {
+    console.log('landing fish');
+
+    if (!!this.dailyCatch) {
+      console.log('updating catch');
+      this.updateDailyCatch(landed);
+    } else {
+      console.log('creating catch');
+      this.createDailyCatch(landed);
+    }
+    console.log(this.dailyCatch);
+    return this;
   }
 
 }

@@ -1,5 +1,5 @@
 <section class="todoapp">
-  <app-todo-list-header [fish]="fish" (add)="onAddTodo($event)"></app-todo-list-header>
+  <app-my-header [fish]="fish" (add)="onAddLanded($event)"></app-my-header>
   <app-todo-list [todos]="todos" (toggleComplete)="onToggleTodoComplete($event)"
                  (remove)="onRemoveTodo($event)"></app-todo-list>
   <app-todo-list-footer [todos]="todos"></app-todo-list-footer>
