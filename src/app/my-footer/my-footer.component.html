@@ -1,3 +1,4 @@
 <footer class="footer" *ngIf="dailyCatch && dailyCatch.landed.length > 0">
   <span class="todo-count"><strong>{{dailyCatch.landed.length}}</strong> {{dailyCatch.landed.length == 1 ? 'catch' : 'catches'}} today</span>
+  <span class="todo-count"><strong>{{catchesSold()}}</strong> {{catchesSold() == 1 ? 'catch' : 'catches'}} sold</span>
 </footer>

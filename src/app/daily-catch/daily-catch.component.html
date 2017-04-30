@@ -3,8 +3,8 @@
     <li *ngFor="let landed of dailyCatch.landed" [class.completed]="false">
       <app-landed
         [landed]="landed"
-        (toggleComplete)="onToggleTodoComplete($event)"
-        (remove)="onRemoveTodo($event)"></app-landed>
+        (toggleSold)="onToggleLandedSold($event)"
+        (remove)="onRemoveLanded($event)"></app-landed>
     </li>
   </ul>
 </section>

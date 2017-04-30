@@ -1,5 +1,5 @@
 <div class="view">
-  <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="false">
+  <input class="toggle" type="checkbox" (click)="toggleLandedSold(landed)" [checked]="landed.sold">
   <label>{{landed.weight}} of {{landed.fish}}</label>
-  <button class="destroy" (click)="removeTodo(todo)"></button>
+  <button class="destroy" (click)="removeLanded(landed)"></button>
 </div>

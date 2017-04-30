@@ -14,4 +14,9 @@ export class MyFooterComponent {
   constructor() {
   }
 
+  catchesSold() {
+    return this.dailyCatch.landed
+      .filter(landed => landed.sold === true)
+      .length;
+  }
 }

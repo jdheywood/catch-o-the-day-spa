@@ -11,8 +11,7 @@ export class DataService {
   // automatic incrementing of id's
   lastId: number = 0;
 
-  // Placeholder for todo's
-  todos: Todo[] = [];
+  // Placeholders for actual data
 
   // types of fish the app supports, populate via code initially then wire up to API
   catfish: Fish = {id: 1, name: 'Catfish'};
@@ -29,55 +28,6 @@ export class DataService {
   constructor() {
   }
 
-  // Simulate POST /todos
-  addTodo(todo: Todo): DataService {
-    console.log('adding to do');
-
-    if (!todo.id) {
-      todo.id = ++this.lastId;
-    }
-    this.todos.push(todo);
-    return this;
-  }
-
-  // Simulate DELETE /todos/:id
-  deleteTodoById(id: number): DataService {
-    this.todos = this.todos
-      .filter(todo => todo.id !== id);
-    return this;
-  }
-
-  // Simulate PUT /todos/:id
-  updateTodoById(id: number, values: Object = {}): Todo {
-    let todo = this.getTodoById(id);
-    if (!todo) {
-      return null;
-    }
-    Object.assign(todo, values);
-    return todo;
-  }
-
-  // Simulate GET /todos
-  getAllTodos(): Todo[] {
-    return this.todos;
-  }
-
-  // Simulate GET /todos/:id
-  getTodoById(id: number): Todo {
-    return this.todos
-      .filter(todo => todo.id === id)
-      .pop();
-  }
-
-  // Toggle todo complete
-  toggleTodoComplete(todo: Todo) {
-    let updatedTodo = this.updateTodoById(todo.id, {
-      complete: !todo.complete
-    });
-    return updatedTodo;
-  }
-
-
   // Simulate GET /fish
   getFish(): Fish[] {
     return this.fish;
@@ -87,6 +37,11 @@ export class DataService {
   createDailyCatch(landed: Landed): DailyCatch {
     this.dailyCatch = new DailyCatch();
     this.dailyCatch.weather = 'Sunny';
+
+    if (!landed.id) {
+      landed.id = (++this.lastId).toString();
+    }
+
     this.dailyCatch.landed.push(landed);
     this.dailyCatch.day = '2017-04-30';
     return this.dailyCatch;
@@ -94,6 +49,10 @@ export class DataService {
 
   // Simulate PUT /catches
   updateDailyCatch(landed: Landed): DailyCatch {
+    if (!landed.id) {
+      landed.id = (++this.lastId).toString();
+    }
+
     this.dailyCatch.landed.push(landed);
     return this.dailyCatch;
   }
@@ -116,6 +75,38 @@ export class DataService {
   // Fetch of todays dailyCatch
   getDailyCatch(): DailyCatch {
     return this.dailyCatch;
+  }
+
+  // Simulate DELETE /landed/:id
+  deleteLandedById(id: string): DataService {
+    this.dailyCatch.landed = this.dailyCatch.landed
+      .filter(landed => landed.id !== id);
+    return this;
+  }
+
+  // Simulate GET /landed/:id
+  getLandedById(id: string): Landed {
+    return this.dailyCatch.landed
+      .filter(landed => landed.id === id)
+      .pop();
+  }
+
+  // Simulate PUT /landed/:id
+  updateLandedById(id: string, values: Object = {}): Landed {
+    let landed = this.getLandedById(id);
+    if (!landed) {
+      return null;
+    }
+    Object.assign(landed, values);
+    return landed;
+  }
+
+  // Toggle landed sold
+  toggleLandedSold(landed: Landed) {
+    let updatedLanded = this.updateLandedById(landed.id, {
+      sold: !landed.sold
+    });
+    return updatedLanded;
   }
 
 }

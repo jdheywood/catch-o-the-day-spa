@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { DailyCatchComponent } from './daily-catch.component';
-import { Todo } from '../todo';
+import { DailyCatch } from '../daily-catch';
 
 describe('DailyCatchComponent', () => {
   let component: DailyCatchComponent;
@@ -23,9 +23,7 @@ describe('DailyCatchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DailyCatchComponent);
     component = fixture.componentInstance;
-    component.todos = [
-     new Todo({ id: 1, title: 'Test', complete: false })
-    ];
+    component.dailyCatch = new DailyCatch({ id: 1, day: '2017-04-30', weather: 'Sunny', landed: [] });
     fixture.detectChanges();
   });
 

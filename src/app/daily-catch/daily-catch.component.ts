@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Todo } from '../todo';
 import { DailyCatch } from '../daily-catch';
+import { Landed } from '../landed';
 
 @Component(
   {
@@ -15,20 +15,20 @@ export class DailyCatchComponent {
   dailyCatch: DailyCatch;
 
   @Output()
-  remove: EventEmitter<Todo> = new EventEmitter();
+  remove: EventEmitter<Landed> = new EventEmitter();
 
   @Output()
-  toggleComplete: EventEmitter<Todo> = new EventEmitter();
+  toggleSold: EventEmitter<Landed> = new EventEmitter();
 
   constructor() {
   }
 
-  onToggleTodoComplete(todo: Todo) {
-    this.toggleComplete.emit(todo);
+  onToggleLandedSold(landed: Landed) {
+    this.toggleSold.emit(landed);
   }
 
-  onRemoveTodo(todo: Todo) {
-    this.remove.emit(todo);
+  onRemoveLanded(landed: Landed) {
+    this.remove.emit(landed);
   }
 
 }

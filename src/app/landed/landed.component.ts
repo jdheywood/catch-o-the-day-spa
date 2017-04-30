@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Todo } from '../todo';
 import {Landed} from "../landed";
 
 @Component({
@@ -9,24 +8,24 @@ import {Landed} from "../landed";
 })
 export class LandedComponent {
 
-  @Input() // todo: Todo;
+  @Input()
   landed: Landed;
 
   @Output()
-  remove: EventEmitter<Todo> = new EventEmitter();
+  remove: EventEmitter<Landed> = new EventEmitter();
 
   @Output()
-  toggleComplete: EventEmitter<Todo> = new EventEmitter();
+  toggleSold: EventEmitter<Landed> = new EventEmitter();
 
   constructor() {
   }
 
-  toggleTodoComplete(todo: Todo) {
-    this.toggleComplete.emit(todo);
+  toggleLandedSold(landed: Landed) {
+    this.toggleSold.emit(landed);
   }
 
-  removeTodo(todo: Todo) {
-    this.remove.emit(todo);
+  removeLanded(landed: Landed) {
+    this.remove.emit(landed);
   }
 
 }

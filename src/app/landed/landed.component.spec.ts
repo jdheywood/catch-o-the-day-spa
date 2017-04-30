@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { LandedComponent } from './landed.component';
-import { Todo } from '../todo';
+import { Landed } from '../landed';
 
 describe('LandedComponent', () => {
   let component: LandedComponent;
@@ -20,7 +20,7 @@ describe('LandedComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LandedComponent);
     component = fixture.componentInstance;
-    component.todo = new Todo({ id: 1, title: 'Test', complete: false });
+    component.landed = new Landed({ id: 1, fish: 'Catfish', weight: '123kg', sold: false });
     fixture.detectChanges();
   });
 
