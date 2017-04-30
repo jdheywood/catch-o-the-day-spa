@@ -1,11 +1,24 @@
 import {Injectable} from '@angular/core';
-import {Todo} from './todo';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 import {Fish} from './fish';
 import {Landed} from './landed';
 import {DailyCatch} from "./daily-catch";
 
+// Import RxJs required methods
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 @Injectable()
 export class DataService {
+
+  // Resolve HTTP using the constructor
+  constructor(private http: Http) {}
+
+  // private instance variables to hold url & paths of our api
+  private apiRootUrl = 'http://localhost:3030/api';
+  private apiPathFish = '/fish';
+  private apiPathCatch = '/catch';
 
   // Placeholder for last id so we can simulate
   // automatic incrementing of id's
@@ -14,9 +27,9 @@ export class DataService {
   // Placeholders for actual data
 
   // types of fish the app supports, populate via code initially then wire up to API
-  catfish: Fish = {id: 1, name: 'Catfish'};
-  pike: Fish = {id: 2, name: 'Pike'};
-  trout: Fish = {id: 3, name: 'Trout'};
+  catfish: Fish = {id: '1', name: 'Catfish'};
+  pike: Fish = {id: '2', name: 'Pike'};
+  trout: Fish = {id: '3', name: 'Trout'};
   fish: Fish[] = [this.catfish, this.pike, this.trout];
 
   // Daily catch
@@ -25,12 +38,12 @@ export class DataService {
   // Landed fish
   landed: Landed[] = [];
 
-  constructor() {
-  }
-
   // Simulate GET /fish
-  getFish(): Fish[] {
-    return this.fish;
+  getFish(): Observable<Fish[]> {
+    // return this.fish;
+
+    return this.http.get(`${this.apiRootUrl}${this.apiPathFish}`)
+      .map((res:Response) => res.json());
   }
 
   // Simulate POST /catches
@@ -60,6 +73,10 @@ export class DataService {
   // Upsert of dailyCatch
   landFish(landed: Landed): DataService {
     console.log('landing fish');
+
+    if (!landed.fish) {
+      landed.fish = this.fish[0].name;
+    }
 
     if (!!this.dailyCatch) {
       console.log('updating catch');

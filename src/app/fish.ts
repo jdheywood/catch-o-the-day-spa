@@ -1,5 +1,5 @@
 export class Fish {
-  id: number;
+  id: string;
   name: string = '';
 
   constructor(values: Object = {}) {

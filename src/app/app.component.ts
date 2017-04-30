@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from './data.service';
+import {Fish} from './fish';
 
 @Component({
   selector: 'app-root',
@@ -7,15 +8,16 @@ import {DataService} from './data.service';
   styleUrls: ['./app.component.css'],
   providers: [DataService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  constructor(
-    private dataService: DataService
-  ) {
-  }
+  constructor(private dataService: DataService) {}
 
-  get fish() {
-    return this.dataService.getFish();
+  fish: Fish[];
+
+  ngOnInit(){
+    this.dataService
+      .getFish()
+      .subscribe(data => this.fish = data)
   }
 
   get dailyCatches() {
