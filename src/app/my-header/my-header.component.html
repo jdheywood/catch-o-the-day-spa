@@ -1,10 +1,10 @@
 <header class="header">
   <h1>Catch of the Day</h1>
-  <input class="new-todo" placeholder="Weight" autofocus="" [(ngModel)]="newLanded.weight"
-         (keyup.enter)="addLanded()">
 
   <select [(ngModel)]="newLanded.fish" (change)="changeFish(newLanded.fish)">
     <option *ngFor="let f of fish" [ngValue]="f.name">{{f.name}}</option>
   </select>
 
+  <input class="new-todo" placeholder="Weight" autofocus="" [(ngModel)]="newLanded.weight"
+         (keyup.enter)="addLanded()">
 </header>

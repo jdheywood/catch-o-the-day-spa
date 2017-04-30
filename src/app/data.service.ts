@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Rx';
 import {Fish} from './fish';
 import {Landed} from './landed';
 import {DailyCatch} from "./daily-catch";
+import * as moment from 'moment';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -18,19 +19,21 @@ export class DataService {
   // private instance variables to hold url & paths of our api
   private apiRootUrl = 'http://localhost:3030/api';
   private apiPathFish = '/fish';
-  private apiPathCatch = '/catch';
+  private apiPathCatch = '/catches';
+  private apiPathLanded = '/landed';
 
-  // Placeholder for last id so we can simulate
-  // automatic incrementing of id's
+  private day = moment().format('YYYY-MM-DD');
+
+  private getHeaders(){
+    let headers = new Headers();
+    headers.append('Accept', 'application/json');
+    return headers;
+  }
+
+  // Placeholder for last id so we can simulate auto-incrementing of id's
   lastId: number = 0;
 
   // Placeholders for actual data
-
-  // types of fish the app supports, populate via code initially then wire up to API
-  catfish: Fish = {id: '1', name: 'Catfish'};
-  pike: Fish = {id: '2', name: 'Pike'};
-  trout: Fish = {id: '3', name: 'Trout'};
-  fish: Fish[] = [this.catfish, this.pike, this.trout];
 
   // Daily catch
   dailyCatch: DailyCatch;
@@ -38,11 +41,15 @@ export class DataService {
   // Landed fish
   landed: Landed[] = [];
 
-  // Simulate GET /fish
+  // GET /fish
   getFish(): Observable<Fish[]> {
-    // return this.fish;
-
     return this.http.get(`${this.apiRootUrl}${this.apiPathFish}`)
+      .map((res:Response) => res.json());
+  }
+
+  // Fetch of todays dailyCatch
+  getDailyCatch(): Observable<DailyCatch> {
+    return this.http.get(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}`)
       .map((res:Response) => res.json());
   }
 
@@ -71,27 +78,15 @@ export class DataService {
   }
 
   // Upsert of dailyCatch
-  landFish(landed: Landed): DataService {
-    console.log('landing fish');
-
+  landFish(landed: Landed): Observable<DailyCatch> {
+    // TODO add form validation to the header component to force selection of fish before submit
     if (!landed.fish) {
-      landed.fish = this.fish[0].name;
+      landed.fish = 'Catfish';
     }
 
-    if (!!this.dailyCatch) {
-      console.log('updating catch');
-      this.updateDailyCatch(landed);
-    } else {
-      console.log('creating catch');
-      this.createDailyCatch(landed);
-    }
-    console.log(this.dailyCatch);
-    return this;
-  }
-
-  // Fetch of todays dailyCatch
-  getDailyCatch(): DailyCatch {
-    return this.dailyCatch;
+    return this.http.put(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}${this.apiPathLanded}`,
+      landed, {headers: this.getHeaders()})
+      .map((res:Response) => res.json());
   }
 
   // Simulate DELETE /landed/:id

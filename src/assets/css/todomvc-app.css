@@ -69,15 +69,21 @@ body {
 
 .todoapp h1 {
 	position: absolute;
-	top: -155px;
+	top: -115px;
 	width: 100%;
-	font-size: 70px;
-	font-weight: 100;
+	font-size: 45px;
+	font-weight: 400;
 	text-align: center;
 	color: rgba(175, 47, 47, 0.15);
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
+}
+
+.todoapp select {
+	width: 50%;
+	font-size: 30px;
+	margin-left: 35%;
 }
 
 .new-todo,

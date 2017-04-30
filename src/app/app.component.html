@@ -1,6 +1,6 @@
 <section class="todoapp">
   <app-my-header [fish]="fish" (add)="onAddLanded($event)"></app-my-header>
-  <app-daily-catch [dailyCatch]="dailyCatches" (toggleSold)="onToggleLandedSold($event)"
+  <app-daily-catch [dailyCatch]="dailyCatch" (toggleSold)="onToggleLandedSold($event)"
                  (remove)="onRemoveLanded($event)"></app-daily-catch>
-  <app-my-footer [dailyCatch]="dailyCatches"></app-my-footer>
+  <app-my-footer [dailyCatch]="dailyCatch"></app-my-footer>
 </section>
