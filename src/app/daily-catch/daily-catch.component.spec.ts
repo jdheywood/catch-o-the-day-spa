@@ -3,16 +3,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { TodoListComponent } from './todo-list.component';
+import { DailyCatchComponent } from './daily-catch.component';
 import { Todo } from '../todo';
 
-describe('TodoListComponent', () => {
-  let component: TodoListComponent;
-  let fixture: ComponentFixture<TodoListComponent>;
+describe('DailyCatchComponent', () => {
+  let component: DailyCatchComponent;
+  let fixture: ComponentFixture<DailyCatchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodoListComponent ],
+      declarations: [ DailyCatchComponent ],
       schemas: [
         NO_ERRORS_SCHEMA
       ]
@@ -21,7 +21,7 @@ describe('TodoListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TodoListComponent);
+    fixture = TestBed.createComponent(DailyCatchComponent);
     component = fixture.componentInstance;
     component.todos = [
      new Todo({ id: 1, title: 'Test', complete: false })

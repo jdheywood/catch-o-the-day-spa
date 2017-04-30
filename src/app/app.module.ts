@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { TodoListComponent } from './todo-list/todo-list.component';
+import { DailyCatchComponent } from './daily-catch/daily-catch.component';
 import { MyFooterComponent } from './my-footer/my-footer.component';
 import { MyHeaderComponent } from './my-header/my-header.component';
 import { DataService } from './data.service';
-import { TodoListItemComponent } from './todo-list-item/todo-list-item.component';
+import { LandedComponent } from './landed/landed.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyHeaderComponent,
-    TodoListComponent,
+    DailyCatchComponent,
     MyFooterComponent,
-    TodoListItemComponent
+    LandedComponent
   ],
   imports: [
     BrowserModule,

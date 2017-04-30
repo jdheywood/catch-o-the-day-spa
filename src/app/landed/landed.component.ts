@@ -1,14 +1,16 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from '../todo';
+import {Landed} from "../landed";
 
 @Component({
-  selector: 'app-todo-list-item',
-  templateUrl: './todo-list-item.component.html',
-  styleUrls: ['./todo-list-item.component.css']
+  selector: 'app-landed',
+  templateUrl: 'landed.component.html',
+  styleUrls: ['landed.component.css']
 })
-export class TodoListItemComponent {
+export class LandedComponent {
 
-  @Input() todo: Todo;
+  @Input() // todo: Todo;
+  landed: Landed;
 
   @Output()
   remove: EventEmitter<Todo> = new EventEmitter();
