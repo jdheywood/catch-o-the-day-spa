@@ -1,3 +1,6 @@
+<section class="main" *ngIf="dailyCatch">
+  <h2>Today's weather: {{dailyCatch.weather}}</h2>
+</section>
 <section class="main" *ngIf="dailyCatch && dailyCatch.landed.length > 0">
   <ul class="todo-list">
     <li *ngFor="let landed of dailyCatch.landed" [class.completed]="false">
