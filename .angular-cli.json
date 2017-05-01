@@ -21,7 +21,10 @@
       "styles": [
         "assets/css/todomvc-common.css",
         "assets/css/todomvc-app.css",
-        "styles.css"
+        "styles.css",
+        "assets/css/bootstrap.min.css",
+        "assets/css/bootstrap-theme.min.css",
+        "assets/css/layout.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
