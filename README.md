@@ -12,6 +12,8 @@ Install dependencies using `npm install` command (locally, a node_modules direct
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+Please note that to develop in conjunction with the Express API you will need to clone that repo and point the 'data.service.ts' class to your local API server.
+
 ## Build
 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
