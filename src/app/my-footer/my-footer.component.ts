@@ -11,8 +11,7 @@ export class MyFooterComponent {
   @Input()
   dailyCatch: DailyCatch;
 
-  constructor() {
-  }
+  constructor() {}
 
   catchesSold() {
     return this.dailyCatch.landed

@@ -33,19 +33,21 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   onAddLanded(landed) {
-    console.log('emitted event landFish caught');
     this.dataService
       .landFish(landed)
       .subscribe(data => this.dailyCatch = data);
   }
 
   onToggleLandedSold(landed) {
-    console.log('emitted event toggleLandedSold caught');
-    this.dataService.toggleLandedSold(landed);
+    this.dataService
+      .toggleLandedSold(landed)
+      .subscribe(data => this.dailyCatch = data);
   }
 
   onRemoveLanded(landed) {
-    this.dataService.deleteLandedById(landed.id);
+    this.dataService
+      .deleteLandedById(landed._id)
+      .subscribe(data => this.dailyCatch = data);
   }
 
 }

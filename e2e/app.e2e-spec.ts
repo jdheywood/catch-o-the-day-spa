@@ -1,14 +1,14 @@
-import { TodoAppPage } from './app.po';
+import { CatchOfTheDayAppPage } from './app.po';
 
-describe('todo-app App', () => {
-  let page: TodoAppPage;
+describe('catch-of-the-day App', () => {
+  let page: CatchOfTheDayAppPage;
 
   beforeEach(() => {
-    page = new TodoAppPage();
+    page = new CatchOfTheDayAppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display the app heading', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getHeadingText()).toEqual('Catch of the Day');
   });
 });

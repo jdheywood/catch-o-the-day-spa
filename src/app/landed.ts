@@ -1,5 +1,5 @@
 export class Landed {
-  id: string;
+  _id: string;
   weight: string;
   fish: string;
   sold: boolean = false;

@@ -17,8 +17,7 @@ export class LandedComponent {
   @Output()
   toggleSold: EventEmitter<Landed> = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   toggleLandedSold(landed: Landed) {
     this.toggleSold.emit(landed);

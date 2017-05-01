@@ -18,18 +18,14 @@ export class MyHeaderComponent {
   @Output()
   add: EventEmitter<Landed> = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   changeFish(value) {
     this.selectedFish = value;
-    console.log(this.selectedFish);
-    console.log(this.newLanded);
   }
 
   addLanded() {
     this.add.emit(this.newLanded);
-    console.log(this.newLanded);
     this.newLanded = new Landed();
   }
 

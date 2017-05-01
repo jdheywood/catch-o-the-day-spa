@@ -20,8 +20,7 @@ export class DailyCatchComponent {
   @Output()
   toggleSold: EventEmitter<Landed> = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   onToggleLandedSold(landed: Landed) {
     this.toggleSold.emit(landed);

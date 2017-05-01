@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {Fish} from './fish';
 import {Landed} from './landed';
 import {DailyCatch} from "./daily-catch";
 import * as moment from 'moment';
-
-// Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -17,7 +15,7 @@ export class DataService {
   constructor(private http: Http) {}
 
   // private instance variables to hold url & paths of our api
-  private apiRootUrl = 'http://localhost:3030/api';
+  private apiRootUrl = 'https://catch-o-the-day.herokuapp.com/api';
   private apiPathFish = '/fish';
   private apiPathCatch = '/catches';
   private apiPathLanded = '/landed';
@@ -30,95 +28,50 @@ export class DataService {
     return headers;
   }
 
-  // Placeholder for last id so we can simulate auto-incrementing of id's
-  lastId: number = 0;
+  private defaultLanded(landed) {
+    if (!landed.fish) {
+      landed.fish = 'Catfish';
+    }
+    if (!landed.weight) {
+      landed.weight = '5kg';
+    }
+    return landed;
+  }
 
-  // Placeholders for actual data
-
-  // Daily catch
-  dailyCatch: DailyCatch;
-
-  // Landed fish
-  landed: Landed[] = [];
-
-  // GET /fish
+  // GET - Fetch the types of fish we support in our app
   getFish(): Observable<Fish[]> {
     return this.http.get(`${this.apiRootUrl}${this.apiPathFish}`)
       .map((res:Response) => res.json());
   }
 
-  // Fetch of todays dailyCatch
+  // GET - Fetch today's dailyCatch
   getDailyCatch(): Observable<DailyCatch> {
     return this.http.get(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}`)
       .map((res:Response) => res.json());
   }
 
-  // Simulate POST /catches
-  createDailyCatch(landed: Landed): DailyCatch {
-    this.dailyCatch = new DailyCatch();
-    this.dailyCatch.weather = 'Sunny';
-
-    if (!landed.id) {
-      landed.id = (++this.lastId).toString();
-    }
-
-    this.dailyCatch.landed.push(landed);
-    this.dailyCatch.day = '2017-04-30';
-    return this.dailyCatch;
-  }
-
-  // Simulate PUT /catches
-  updateDailyCatch(landed: Landed): DailyCatch {
-    if (!landed.id) {
-      landed.id = (++this.lastId).toString();
-    }
-
-    this.dailyCatch.landed.push(landed);
-    return this.dailyCatch;
-  }
-
-  // Upsert of dailyCatch
+  // PUT - 'Upsert' of landed value on current dailyCatch
   landFish(landed: Landed): Observable<DailyCatch> {
-    // TODO add form validation to the header component to force selection of fish before submit
-    if (!landed.fish) {
-      landed.fish = 'Catfish';
-    }
+    // TODO add form validation to the header component to force selection of fish and entry of (valid?) weight on submit
+    landed = this.defaultLanded(landed);
 
     return this.http.put(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}${this.apiPathLanded}`,
       landed, {headers: this.getHeaders()})
       .map((res:Response) => res.json());
   }
 
-  // Simulate DELETE /landed/:id
-  deleteLandedById(id: string): DataService {
-    this.dailyCatch.landed = this.dailyCatch.landed
-      .filter(landed => landed.id !== id);
-    return this;
+  // PUT - Toggle landed sold property of specific landed on current dailyCatch
+  toggleLandedSold(landed: Landed): Observable<DailyCatch> {
+    return this.http.put(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}${this.apiPathLanded}/${landed._id}`,
+      {}, {headers: this.getHeaders()})
+      .map((res:Response) => res.json());
   }
 
-  // Simulate GET /landed/:id
-  getLandedById(id: string): Landed {
-    return this.dailyCatch.landed
-      .filter(landed => landed.id === id)
-      .pop();
-  }
-
-  // Simulate PUT /landed/:id
-  updateLandedById(id: string, values: Object = {}): Landed {
-    let landed = this.getLandedById(id);
-    if (!landed) {
-      return null;
-    }
-    Object.assign(landed, values);
-    return landed;
-  }
-
-  // Toggle landed sold
-  toggleLandedSold(landed: Landed) {
-    let updatedLanded = this.updateLandedById(landed.id, {
-      sold: !landed.sold
-    });
-    return updatedLanded;
+  // DELETE - Remove landed by identifier from current dailyCatch
+  deleteLandedById(id: string): Observable<DailyCatch> {
+    return this.http.delete(`${this.apiRootUrl}${this.apiPathCatch}/${this.day}${this.apiPathLanded}/${id}`,
+      {headers: this.getHeaders()})
+      .map((res:Response) => res.json());
   }
 
 }
