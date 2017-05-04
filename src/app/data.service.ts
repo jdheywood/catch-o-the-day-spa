@@ -15,8 +15,8 @@ export class DataService {
   constructor(private http: Http) {}
 
   // private instance variables to hold url & paths of our api
-  // 'http://localhost:3030/api';
-  private apiRootUrl = 'https://catch-o-the-day.herokuapp.com/api';
+  // 'https://catch-o-the-day.herokuapp.com/api';
+  private apiRootUrl = 'http://localhost:3030/api';
   private apiPathFish = '/fish';
   private apiPathCatch = '/catches';
   private apiPathLanded = '/landed';
